@@ -1,0 +1,11 @@
+#apagarAluno{
+    -fx-background-color: #ff0033;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 4;
+}
+
+#novoAluno{
+    -fx-background-color: #3366ff;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 4;
+}
