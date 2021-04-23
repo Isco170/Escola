@@ -32,7 +32,7 @@ public class Principal extends Application {
 
     Button novaTurma, novoAluno, apagarTurma, apagarAluno;
 
-    TableView<Estudante> tabelaEstudante;
+    static TableView<Estudante> tabelaEstudante;
     TableColumn<Estudante, String> nomeEstudante;
     TableColumn<Estudante, String> apelidoEstudante;
     TableColumn<Estudante, String> telefoneEstudante;
@@ -73,6 +73,7 @@ public class Principal extends Application {
 //        tabelaEstudante.setPadding(new Insets(10));
         try {
             tabelaEstudante.setItems(listarEstudantes());
+            
 
         } catch (SQLException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);

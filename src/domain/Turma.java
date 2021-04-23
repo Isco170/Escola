@@ -8,6 +8,12 @@ public class Turma {
         this.descricao = descricao;
     }
     
+    public Turma(int identificacao, String descricao){
+        this.identificacao = identificacao;
+        this.descricao = descricao;
+        
+    }
+    
     public Turma(){
         
     }
@@ -29,5 +35,12 @@ public class Turma {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    @Override
+    public String toString() {
+        return descricao;
+    }
+    
+    
     
 }

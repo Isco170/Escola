@@ -1,6 +1,7 @@
 package domain;
 
 public class Estudante {
+
     private int matricula;
     private String nome;
     private String apelido;
@@ -8,9 +9,9 @@ public class Estudante {
     private String endereco;
     private Turma turma;
     private String descricao;
-    
-    public Estudante(){
-        
+
+    public Estudante() {
+
     }
 
     public Estudante(int matricula, String nome, String apelido, String telefone, String endereco) {
@@ -21,6 +22,24 @@ public class Estudante {
         this.endereco = endereco;
     }
 
+    public Estudante(String nome, String apelido, String telefone, String endereco) {
+        
+        this.nome = nome;
+        this.apelido = apelido;
+        this.telefone = telefone;
+        this.endereco = endereco;
+    }
+
+    public Estudante(String nome, String apelido, String telefone, String endereco, Turma turma) {
+        
+        this.nome = nome;
+        this.apelido = apelido;
+        this.telefone = telefone;
+        this.endereco = endereco;
+        this.turma = turma;
+    }
+    
+
     public int getMatricula() {
         return matricula;
     }
@@ -28,7 +47,6 @@ public class Estudante {
     public void setMatricula(int matricula) {
         this.matricula = matricula;
     }
-    
 
     public String getNome() {
         return nome;
@@ -77,8 +95,5 @@ public class Estudante {
     public void setDescricaoTurma(String descricaoTurma) {
         this.descricao = descricaoTurma;
     }
-    
-    
-    
-    
+
 }
