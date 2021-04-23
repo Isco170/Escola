@@ -44,7 +44,7 @@ public class TurmaDAO {
         
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM turma ");
-        sql.append("where apaado = false ");
+        sql.append("where apagado = false ");
         
         Connection conexao = Conexao.conetar();
         
@@ -54,7 +54,7 @@ public class TurmaDAO {
         ObservableList<Turma> listaTurma = FXCollections.observableArrayList();
         while(resultado.next()){
             Turma turma = new Turma();
-            turma.setIdentificacao(resultado.getInt("descricao"));
+            turma.setIdentificacao(resultado.getInt("identificacao"));
             turma.setDescricao(resultado.getString("descricao"));
             listaTurma.add(turma);
         }
