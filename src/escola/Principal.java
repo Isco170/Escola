@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 public class Principal extends Application {
 
     EstudanteDAO estuDAO;
+    novoAluno novoAl;
 
     Stage janela;
     Scene cena;
@@ -45,7 +46,6 @@ public class Principal extends Application {
         border.setPadding(new Insets(10));
 
         //Centro
-
         //Tabela
         nomeEstudante = new TableColumn<>("Nome");
         nomeEstudante.setMinWidth(180);
@@ -77,30 +77,29 @@ public class Principal extends Application {
         } catch (SQLException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        tabelaEstudante.getColumns().addAll(nomeEstudante,apelidoEstudante, 
+
+        tabelaEstudante.getColumns().addAll(nomeEstudante, apelidoEstudante,
                 telefoneEstudante, enderecoEstudante, turmaEstudante);
-        
+
         apagarAluno = new Button("Remover aluno");
         apagarAluno.setVisible(false);
         apagarAluno.setId("apagarAluno");
-        
+
         novoAluno = new Button("Novo aluno");
         novoAluno.setId("novoAluno");
-        
+
         botoes = new HBox();
         botoes.autosize();
         botoes.setPadding(new Insets(8));
         botoes.setSpacing(8);
-        
-        //Fim tabela
 
+        //Fim tabela
         //Fim centro
-        
         cena = new Scene(border, 1220, 650);
         cena.getStylesheets().add("escola/styles.css");
     }
-    public void initLayout(){
+
+    public void initLayout() {
         border.setCenter(tabelaEstudante);
         botoes.getChildren().addAll(apagarAluno, novoAluno);
         border.setBottom(botoes);
@@ -115,24 +114,25 @@ public class Principal extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         janela = primaryStage;
-        
+
         initComponents();
         initLayout();
-        
-        tabelaEstudante.setOnMouseClicked(e ->{
-            if((!tabelaEstudante.getItems().isEmpty()) && (tabelaEstudante.getSelectionModel().getSelectedIndex() >= 0)){
+
+        tabelaEstudante.setOnMouseClicked(e -> {
+            if ((!tabelaEstudante.getItems().isEmpty()) && (tabelaEstudante.getSelectionModel().getSelectedIndex() >= 0)) {
                 apagarAluno.setVisible(true);
             }
         });
-        
-        apagarAluno.setOnAction(e ->{
-            if(!tabelaEstudante.getItems().isEmpty()){
+
+        apagarAluno.setOnAction(e -> {
+            if (!tabelaEstudante.getItems().isEmpty()) {
                 int resposta = JOptionPane.showConfirmDialog(null, "Tem certeza "
                         + "que quer remover o estudante selecionado?", "Apagar "
-                                + "despesa", JOptionPane.OK_OPTION);
-                if(resposta == 0){
+                        + "despesa", JOptionPane.OK_OPTION);
+                if (resposta == 0) {
                     try {
                         estuDAO.excluirEstudante(tabelaEstudante.getItems().get(tabelaEstudante.getSelectionModel().getSelectedIndex()));
+
                         tabelaEstudante.setItems(listarEstudantes());
                     } catch (SQLException ex) {
                         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -140,12 +140,23 @@ public class Principal extends Application {
                 }
             }
         });
-                janela.setTitle("Escola");
+
+        novoAluno.setOnAction(e -> {
+            novoAl = new novoAluno();
+            try {
+                novoAl.start(new Stage());
+            } catch (Exception ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        janela.setTitle("Escola");
         janela.setScene(cena);
 //        janela.setResizable(false);
         janela.show();
 
     }
+
     public static void main(String[] args) {
         launch(args);
     }
