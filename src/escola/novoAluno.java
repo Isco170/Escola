@@ -144,10 +144,6 @@ public class novoAluno extends Application {
         });
 
         salvar.setOnAction(e -> {
-            nome.getText();
-            apelido.getText();
-            telefone.getText();
-            endereco.getText();
 
             Turma turma = new Turma(turmas.getItems().get(turmas.getSelectionModel().getSelectedIndex()).getIdentificacao(), turmas.getItems().get(turmas.getSelectionModel().getSelectedIndex()).getDescricao());
             Estudante estudante = new Estudante(nome.getText(), apelido.getText(), telefone.getText(), endereco.getText(), turma);

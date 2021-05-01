@@ -29,7 +29,7 @@ public class Principal extends Application {
     novoAluno novoAl;
 
     TurmaDAO turDAO;
-//    novaTurma novaTur;
+    novaTurma novaTur;
 
     Stage janela;
     Scene cena;
@@ -243,6 +243,15 @@ public class Principal extends Application {
             novoAl = new novoAluno();
             try {
                 novoAl.start(new Stage());
+            } catch (Exception ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
+        novaTurma.setOnAction(e -> {
+            novaTur = new novaTurma();
+            try {
+                novaTur.start(new Stage());
             } catch (Exception ex) {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
