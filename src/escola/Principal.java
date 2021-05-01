@@ -54,6 +54,7 @@ public class Principal extends Application {
     //Tabela de turmas
     static TableView<Turma> tabelaTurma;
     TableColumn<Turma, String> descricaoTurma;
+    TableColumn<Turma, Integer> identificacaoTurma;
     //Fim da tabela de turmas
     
 
@@ -74,7 +75,6 @@ public class Principal extends Application {
         turmaBorder = new BorderPane();
         alunoBorder = new BorderPane();
 
-        //Centro
         //Tabela
         nomeEstudante = new TableColumn<>("Nome");
         nomeEstudante.setMinWidth(180);
@@ -110,7 +110,12 @@ public class Principal extends Application {
         tabelaEstudante.getColumns().addAll(nomeEstudante, apelidoEstudante,
                 telefoneEstudante, enderecoEstudante, turmaEstudante);
         
+        identificacaoTurma = new TableColumn<>("Identificação");
+        identificacaoTurma.setMinWidth(100);
+        identificacaoTurma.setCellValueFactory(new PropertyValueFactory<>("identificacao"));
+        
         descricaoTurma = new TableColumn<>("Descrição");
+        descricaoTurma.setMinWidth(180);
         descricaoTurma.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         
         tabelaTurma = new TableView();
@@ -120,7 +125,7 @@ public class Principal extends Application {
         } catch (SQLException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        tabelaTurma.getColumns().addAll(descricaoTurma);
+        tabelaTurma.getColumns().addAll(identificacaoTurma, descricaoTurma);
 
         apagarAluno = new Button("Remover aluno");
         apagarAluno.setVisible(false);
@@ -148,6 +153,7 @@ public class Principal extends Application {
         alunoTab.setContent(alunoBorder);
         
         turmaBorder.setCenter(tabelaTurma);
+        turmaTab.setContent(turmaBorder);
         
         tabPane.getTabs().addAll(turmaTab, alunoTab);
         border.setCenter(tabPane);
