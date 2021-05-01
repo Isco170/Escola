@@ -2,6 +2,7 @@ package escola;
 
 import dao.EstudanteDAO;
 import domain.Estudante;
+import domain.Turma;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,10 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -27,23 +29,46 @@ public class Principal extends Application {
 
     Stage janela;
     Scene cena;
-    BorderPane border;
+
+    TabPane tabPane;
+    Tab turmaTab, alunoTab;
+
+    BorderPane border, turmaBorder, alunoBorder;
     HBox botoes;
 
     Button novaTurma, novoAluno, apagarTurma, apagarAluno;
 
+    //Tabela de alunos
     static TableView<Estudante> tabelaEstudante;
     TableColumn<Estudante, String> nomeEstudante;
     TableColumn<Estudante, String> apelidoEstudante;
     TableColumn<Estudante, String> telefoneEstudante;
     TableColumn<Estudante, String> enderecoEstudante;
     TableColumn<Estudante, String> turmaEstudante;
+    //fim da tabela de alunos
+    
+    //Tabela de turmas
+    static TableView<Turma> tabelaTurma;
+    TableColumn<Turma, String> descricaoTurma;
+    //Fim da tabela de turmas
+    
 
     public void initComponents() {
         border = new BorderPane();
         border.autosize();
         border.bottomProperty();
         border.setPadding(new Insets(10));
+
+        tabPane = new TabPane();
+
+        turmaTab = new Tab("Turmas");
+        turmaTab.setClosable(false);
+
+        alunoTab = new Tab("Alunos");
+        alunoTab.setClosable(false);
+
+        turmaBorder = new BorderPane();
+        alunoBorder = new BorderPane();
 
         //Centro
         //Tabela
@@ -73,7 +98,6 @@ public class Principal extends Application {
 //        tabelaEstudante.setPadding(new Insets(10));
         try {
             tabelaEstudante.setItems(listarEstudantes());
-            
 
         } catch (SQLException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,9 +125,16 @@ public class Principal extends Application {
     }
 
     public void initLayout() {
-        border.setCenter(tabelaEstudante);
+
+        alunoBorder.setCenter(tabelaEstudante);
         botoes.getChildren().addAll(apagarAluno, novoAluno);
-        border.setBottom(botoes);
+        alunoBorder.setBottom(botoes);
+        alunoTab.setContent(alunoBorder);
+        tabPane.getTabs().addAll(turmaTab, alunoTab);
+        border.setCenter(tabPane);
+
+        
+
     }
 
     public ObservableList<Estudante> listarEstudantes() throws SQLException {
