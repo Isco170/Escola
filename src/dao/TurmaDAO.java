@@ -29,9 +29,8 @@ public class TurmaDAO {
     public void excluirTurma(Turma turma) throws SQLException{
         
         StringBuilder sql = new StringBuilder();
-        sql.append("update from turma ");
-        sql.append("set apagado = true ");
-        sql.append("where descricao =? ");
+        sql.append("update turma set apagado = true ");
+        sql.append("where identificacao = ? ");
         
         Connection conexao = Conexao.conetar();
         

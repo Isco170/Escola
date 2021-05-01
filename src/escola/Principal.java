@@ -198,9 +198,9 @@ public class Principal extends Application {
                 apagarAluno.setVisible(true);
             }
         });
-        
-        tabelaTurma.setOnMouseClicked(e ->{
-            if((!tabelaTurma.getItems().isEmpty()) && (tabelaTurma.getSelectionModel().getSelectedIndex() >= 0)){
+
+        tabelaTurma.setOnMouseClicked(e -> {
+            if ((!tabelaTurma.getItems().isEmpty()) && (tabelaTurma.getSelectionModel().getSelectedIndex() >= 0)) {
                 apagarTurma.setVisible(true);
             }
         });
@@ -209,12 +209,29 @@ public class Principal extends Application {
             if (!tabelaEstudante.getItems().isEmpty()) {
                 int resposta = JOptionPane.showConfirmDialog(null, "Tem certeza "
                         + "que quer remover o estudante selecionado?", "Apagar "
-                        + "despesa", JOptionPane.OK_OPTION);
+                        + "estudante", JOptionPane.OK_OPTION);
                 if (resposta == 0) {
                     try {
                         estuDAO.excluirEstudante(tabelaEstudante.getItems().get(tabelaEstudante.getSelectionModel().getSelectedIndex()));
 
                         tabelaEstudante.setItems(listarEstudantes());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
+
+        apagarTurma.setOnAction(e -> {
+            if (!tabelaTurma.getItems().isEmpty()) {
+                int resposta = JOptionPane.showConfirmDialog(null, "Tem certeza "
+                        + "que quer remover a turma selecionada?", "Apagar "
+                        + "turma", JOptionPane.OK_OPTION);
+                if (resposta == 0) {
+                    try {
+                        turDAO.excluirTurma(tabelaTurma.getItems().get(tabelaTurma.getSelectionModel().getSelectedIndex()));
+
+                        tabelaTurma.setItems(listarTurmas());
                     } catch (SQLException ex) {
                         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                     }
