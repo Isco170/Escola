@@ -1,6 +1,7 @@
 package escola;
 
 import dao.EstudanteDAO;
+import dao.TurmaDAO;
 import domain.Estudante;
 import domain.Turma;
 import java.sql.SQLException;
@@ -26,6 +27,9 @@ public class Principal extends Application {
 
     EstudanteDAO estuDAO;
     novoAluno novoAl;
+    
+    TurmaDAO turDAO;
+//    novaTurma novaTur;
 
     Stage janela;
     Scene cena;
@@ -105,6 +109,18 @@ public class Principal extends Application {
 
         tabelaEstudante.getColumns().addAll(nomeEstudante, apelidoEstudante,
                 telefoneEstudante, enderecoEstudante, turmaEstudante);
+        
+        descricaoTurma = new TableColumn<>("Descrição");
+        descricaoTurma.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        
+        tabelaTurma = new TableView();
+        tabelaTurma.setPlaceholder(new Text("Sem turmas"));
+        try {
+            tabelaTurma.setItems(listarTurmas());
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tabelaTurma.getColumns().addAll(descricaoTurma);
 
         apagarAluno = new Button("Remover aluno");
         apagarAluno.setVisible(false);
@@ -130,6 +146,9 @@ public class Principal extends Application {
         botoes.getChildren().addAll(apagarAluno, novoAluno);
         alunoBorder.setBottom(botoes);
         alunoTab.setContent(alunoBorder);
+        
+        turmaBorder.setCenter(tabelaTurma);
+        
         tabPane.getTabs().addAll(turmaTab, alunoTab);
         border.setCenter(tabPane);
 
@@ -142,7 +161,11 @@ public class Principal extends Application {
         ObservableList<Estudante> estudantes = (ObservableList<Estudante>) estuDAO.listarEstudante();
         return estudantes;
     }
-
+    public ObservableList<Turma> listarTurmas() throws SQLException{
+        turDAO = new TurmaDAO();
+        ObservableList<Turma> turmas = (ObservableList<Turma>) turDAO.listarTurma();
+        return turmas;
+    }
     @Override
     public void start(Stage primaryStage) throws Exception {
         janela = primaryStage;
