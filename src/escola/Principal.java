@@ -27,7 +27,7 @@ public class Principal extends Application {
 
     EstudanteDAO estuDAO;
     novoAluno novoAl;
-    
+
     TurmaDAO turDAO;
 //    novaTurma novaTur;
 
@@ -38,7 +38,7 @@ public class Principal extends Application {
     Tab turmaTab, alunoTab;
 
     BorderPane border, turmaBorder, alunoBorder;
-    HBox botoes;
+    HBox botoes, botoes2;
 
     Button novaTurma, novoAluno, apagarTurma, apagarAluno;
 
@@ -50,13 +50,12 @@ public class Principal extends Application {
     TableColumn<Estudante, String> enderecoEstudante;
     TableColumn<Estudante, String> turmaEstudante;
     //fim da tabela de alunos
-    
+
     //Tabela de turmas
     static TableView<Turma> tabelaTurma;
     TableColumn<Turma, String> descricaoTurma;
     TableColumn<Turma, Integer> identificacaoTurma;
     //Fim da tabela de turmas
-    
 
     public void initComponents() {
         border = new BorderPane();
@@ -109,15 +108,15 @@ public class Principal extends Application {
 
         tabelaEstudante.getColumns().addAll(nomeEstudante, apelidoEstudante,
                 telefoneEstudante, enderecoEstudante, turmaEstudante);
-        
+
         identificacaoTurma = new TableColumn<>("Identificação");
         identificacaoTurma.setMinWidth(100);
         identificacaoTurma.setCellValueFactory(new PropertyValueFactory<>("identificacao"));
-        
+
         descricaoTurma = new TableColumn<>("Descrição");
         descricaoTurma.setMinWidth(180);
         descricaoTurma.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-        
+
         tabelaTurma = new TableView();
         tabelaTurma.setPlaceholder(new Text("Sem turmas"));
         try {
@@ -131,13 +130,25 @@ public class Principal extends Application {
         apagarAluno.setVisible(false);
         apagarAluno.setId("apagarAluno");
 
+        apagarTurma = new Button("Remover turma");
+        apagarTurma.setVisible(false);
+        apagarTurma.setId("apagarAluno");
+
         novoAluno = new Button("Novo aluno");
         novoAluno.setId("novoAluno");
+
+        novaTurma = new Button("Nova turma");
+        novaTurma.setId("novoAluno");
 
         botoes = new HBox();
         botoes.autosize();
         botoes.setPadding(new Insets(8));
         botoes.setSpacing(8);
+
+        botoes2 = new HBox();
+        botoes2.autosize();
+        botoes2.setPadding(new Insets(8));
+        botoes2.setSpacing(8);
 
         //Fim tabela
         //Fim centro
@@ -151,14 +162,15 @@ public class Principal extends Application {
         botoes.getChildren().addAll(apagarAluno, novoAluno);
         alunoBorder.setBottom(botoes);
         alunoTab.setContent(alunoBorder);
-        
+
         turmaBorder.setCenter(tabelaTurma);
+        botoes2.getChildren().addAll(apagarTurma, novaTurma);
+        turmaBorder.setBottom(botoes2);
+
         turmaTab.setContent(turmaBorder);
-        
+
         tabPane.getTabs().addAll(turmaTab, alunoTab);
         border.setCenter(tabPane);
-
-        
 
     }
 
@@ -167,11 +179,13 @@ public class Principal extends Application {
         ObservableList<Estudante> estudantes = (ObservableList<Estudante>) estuDAO.listarEstudante();
         return estudantes;
     }
-    public ObservableList<Turma> listarTurmas() throws SQLException{
+
+    public ObservableList<Turma> listarTurmas() throws SQLException {
         turDAO = new TurmaDAO();
         ObservableList<Turma> turmas = (ObservableList<Turma>) turDAO.listarTurma();
         return turmas;
     }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         janela = primaryStage;
@@ -182,6 +196,12 @@ public class Principal extends Application {
         tabelaEstudante.setOnMouseClicked(e -> {
             if ((!tabelaEstudante.getItems().isEmpty()) && (tabelaEstudante.getSelectionModel().getSelectedIndex() >= 0)) {
                 apagarAluno.setVisible(true);
+            }
+        });
+        
+        tabelaTurma.setOnMouseClicked(e ->{
+            if((!tabelaTurma.getItems().isEmpty()) && (tabelaTurma.getSelectionModel().getSelectedIndex() >= 0)){
+                apagarTurma.setVisible(true);
             }
         });
 
