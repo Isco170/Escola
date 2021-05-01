@@ -46,7 +46,7 @@ public class EstudanteDAO {
         StringBuilder sql = new StringBuilder();
         sql.append("select * from estudante estu ");
         sql.append("inner join turma tur on tur.identificacao = estu.turma ");
-        sql.append("where estu.apagado = false ");
+        sql.append("where estu.apagado = false and tur.apagado = false ");
         
         Connection conexao = Conexao.conetar();
         PreparedStatement comando = conexao.prepareStatement(sql.toString());
