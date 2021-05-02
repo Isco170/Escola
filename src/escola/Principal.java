@@ -232,6 +232,7 @@ public class Principal extends Application {
                         turDAO.excluirTurma(tabelaTurma.getItems().get(tabelaTurma.getSelectionModel().getSelectedIndex()));
 
                         tabelaTurma.setItems(listarTurmas());
+                        tabelaEstudante.setItems(listarEstudantes());
                     } catch (SQLException ex) {
                         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                     }
