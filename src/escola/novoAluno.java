@@ -4,6 +4,7 @@ import dao.EstudanteDAO;
 import dao.TurmaDAO;
 import domain.Estudante;
 import domain.Turma;
+import static escola.Principal.tabelaEstudante;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -153,8 +154,7 @@ public class novoAluno extends Application {
                 estuDAO.salvarEstudante(estudante);
                 notificacao(Pos.TOP_CENTER, graphic, "Salvo com sucesso");
                 notificacaoBuilder.showInformation();
-                principal.tabelaEstudante.refresh();
-                janela.close();
+                principal.tabelaEstudante.setItems(principal.listarEstudantes());
                 
             } catch (SQLException ex) {
                 notificacao(Pos.TOP_CENTER, graphic, "Falha ao salvar estudante");

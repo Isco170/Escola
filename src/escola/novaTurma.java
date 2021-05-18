@@ -25,7 +25,7 @@ public class novaTurma extends Application {
     Stage janela;
     Scene cena;
 
-    Principal principal;
+    static Principal principal;
     BorderPane border;
     VBox box;
     Button salvar, cancelar;
@@ -82,6 +82,7 @@ public class novaTurma extends Application {
                 .position(pos)
                 .onAction(e -> {
                     System.out.println("Notificador");
+                    
                 });
     }
 
@@ -102,9 +103,11 @@ public class novaTurma extends Application {
             try {
                 turDAO.salvarTurma(turma);
                 notificacao(Pos.TOP_CENTER, graphic, "Salvo com sucesso");
+                
                 notificacaoBuilder.showInformation();
-                principal.tabelaTurma.refresh();
-                janela.close();
+                principal.tabelaTurma.setItems(principal.listarTurmas());
+                
+                
 
             } catch (SQLException ex) {
                 notificacao(Pos.TOP_CENTER, graphic, "Falha ao salvar turma");

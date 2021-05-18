@@ -25,10 +25,10 @@ import javax.swing.JOptionPane;
 
 public class Principal extends Application {
 
-    EstudanteDAO estuDAO;
+    static EstudanteDAO estuDAO;
     novoAluno novoAl;
 
-    TurmaDAO turDAO;
+    static TurmaDAO turDAO;
     novaTurma novaTur;
 
     Stage janela;
@@ -174,13 +174,13 @@ public class Principal extends Application {
 
     }
 
-    public ObservableList<Estudante> listarEstudantes() throws SQLException {
+    static public ObservableList<Estudante> listarEstudantes() throws SQLException {
         estuDAO = new EstudanteDAO();
         ObservableList<Estudante> estudantes = (ObservableList<Estudante>) estuDAO.listarEstudante();
         return estudantes;
     }
 
-    public ObservableList<Turma> listarTurmas() throws SQLException {
+    static public ObservableList<Turma> listarTurmas() throws SQLException {
         turDAO = new TurmaDAO();
         ObservableList<Turma> turmas = (ObservableList<Turma>) turDAO.listarTurma();
         return turmas;
@@ -215,6 +215,8 @@ public class Principal extends Application {
                         estuDAO.excluirEstudante(tabelaEstudante.getItems().get(tabelaEstudante.getSelectionModel().getSelectedIndex()));
 
                         tabelaEstudante.setItems(listarEstudantes());
+                        tabelaTurma.setItems(listarTurmas());
+
                     } catch (SQLException ex) {
                         Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -248,7 +250,7 @@ public class Principal extends Application {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+
         novaTurma.setOnAction(e -> {
             novaTur = new novaTurma();
             try {
