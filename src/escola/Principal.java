@@ -27,6 +27,7 @@ public class Principal extends Application {
 
     static EstudanteDAO estuDAO;
     novoAluno novoAl;
+    modificarTurma modTurma;
 
     static TurmaDAO turDAO;
     novaTurma novaTur;
@@ -40,7 +41,7 @@ public class Principal extends Application {
     BorderPane border, turmaBorder, alunoBorder;
     HBox botoes, botoes2;
 
-    Button novaTurma, novoAluno, apagarTurma, apagarAluno;
+    Button novaTurma, novoAluno, apagarTurma, apagarAluno, modificarTurma, modificarEstudante;
 
     //Tabela de alunos
     static TableView<Estudante> tabelaEstudante;
@@ -133,12 +134,20 @@ public class Principal extends Application {
         apagarTurma = new Button("Remover turma");
         apagarTurma.setVisible(false);
         apagarTurma.setId("apagarAluno");
+        
+        modificarTurma = new Button("Modificar");
+        modificarTurma.setVisible(false);
+        modificarTurma.setId("modificar");
 
         novoAluno = new Button("Novo aluno");
         novoAluno.setId("novoAluno");
 
         novaTurma = new Button("Nova turma");
         novaTurma.setId("novoAluno");
+        
+        modificarEstudante = new Button("Modificar");
+        modificarEstudante.setVisible(false);
+        modificarEstudante.setId("modificar");
 
         botoes = new HBox();
         botoes.autosize();
@@ -159,12 +168,12 @@ public class Principal extends Application {
     public void initLayout() {
 
         alunoBorder.setCenter(tabelaEstudante);
-        botoes.getChildren().addAll(apagarAluno, novoAluno);
+        botoes.getChildren().addAll(apagarAluno, modificarEstudante, novoAluno);
         alunoBorder.setBottom(botoes);
         alunoTab.setContent(alunoBorder);
 
         turmaBorder.setCenter(tabelaTurma);
-        botoes2.getChildren().addAll(apagarTurma, novaTurma);
+        botoes2.getChildren().addAll(apagarTurma, modificarTurma, novaTurma);
         turmaBorder.setBottom(botoes2);
 
         turmaTab.setContent(turmaBorder);
@@ -196,12 +205,14 @@ public class Principal extends Application {
         tabelaEstudante.setOnMouseClicked(e -> {
             if ((!tabelaEstudante.getItems().isEmpty()) && (tabelaEstudante.getSelectionModel().getSelectedIndex() >= 0)) {
                 apagarAluno.setVisible(true);
+                modificarEstudante.setVisible(true);
             }
         });
 
         tabelaTurma.setOnMouseClicked(e -> {
             if ((!tabelaTurma.getItems().isEmpty()) && (tabelaTurma.getSelectionModel().getSelectedIndex() >= 0)) {
                 apagarTurma.setVisible(true);
+                modificarTurma.setVisible(true);
             }
         });
 
@@ -257,6 +268,17 @@ public class Principal extends Application {
                 novaTur.start(new Stage());
             } catch (Exception ex) {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
+        modificarTurma.setOnAction(e ->{
+            if(!tabelaTurma.getItems().isEmpty()){
+                try {
+                    modTurma = new modificarTurma(tabelaTurma.getItems().get(tabelaTurma.getSelectionModel().getSelectedIndex()));
+                    modTurma.start(new Stage());
+                } catch (Exception ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 

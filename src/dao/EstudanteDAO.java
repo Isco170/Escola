@@ -85,6 +85,7 @@ public class EstudanteDAO {
         comando.setString(2, estudante.getApelido());
         comando.setString(3, estudante.getTelefone());
         comando.setString(4, estudante.getEndereco());
-        comando.executeQuery();
+        comando.setInt(5, estudante.getMatricula());
+        comando.executeUpdate();
     }
 }
