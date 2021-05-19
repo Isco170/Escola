@@ -62,10 +62,11 @@ public class EstudanteDAO {
             estu.setApelido(resultado.getString("estu.apelido"));
             estu.setTelefone(resultado.getString("estu.telefone"));
             estu.setEndereco(resultado.getString("estu.endereco"));
-            estu.setDescricaoTurma(resultado.getString("tur.descricao"));
+            estu.setDescricao(resultado.getString("tur.descricao"));
+            tur.setIdentificacao(resultado.getInt("tur.identificacao"));
+            tur.setDescricao(resultado.getString("tur.descricao"));
             
-            System.out.println(estu.getDescricaoTurma());
-            
+            estu.setTurma(tur);
             listaEstudante.add(estu);
         }
         

@@ -187,6 +187,7 @@ public class Principal extends Application {
     static public ObservableList<Estudante> listarEstudantes() throws SQLException {
         estuDAO = new EstudanteDAO();
         ObservableList<Estudante> estudantes = (ObservableList<Estudante>) estuDAO.listarEstudante();
+        
         return estudantes;
     }
 

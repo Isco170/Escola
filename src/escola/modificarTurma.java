@@ -104,10 +104,11 @@ public class modificarTurma extends Application{
             turma.setDescricao(descricao.getText());
             try {
                 
-                turDAO.salvarTurma(turma);
+                turDAO.editarTurma(turma);
                 notificacao(Pos.TOP_CENTER, graphic, "Modficado com sucesso");
                 notificacaoBuilder.showInformation();
                 principal.tabelaTurma.setItems(principal.listarTurmas());
+                principal.tabelaEstudante.setItems(principal.listarEstudantes());
                 cancelar.setText("Fechar");
             } catch (SQLException ex) {
                 Logger.getLogger(modificarTurma.class.getName()).log(Level.SEVERE, null, ex);

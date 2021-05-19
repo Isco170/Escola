@@ -88,12 +88,16 @@ public class Estudante {
         this.turma = turma;
     }
 
-    public String getDescricaoTurma() {
+    public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricaoTurma(String descricaoTurma) {
-        this.descricao = descricaoTurma;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
+    
+    
+    
+    
 
 }
