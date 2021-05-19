@@ -28,6 +28,7 @@ public class Principal extends Application {
     static EstudanteDAO estuDAO;
     novoAluno novoAl;
     modificarTurma modTurma;
+    modificarAluno modAluno;
 
     static TurmaDAO turDAO;
     novaTurma novaTur;
@@ -276,6 +277,17 @@ public class Principal extends Application {
                 try {
                     modTurma = new modificarTurma(tabelaTurma.getItems().get(tabelaTurma.getSelectionModel().getSelectedIndex()));
                     modTurma.start(new Stage());
+                } catch (Exception ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
+        modificarEstudante.setOnAction(e ->{
+            if(!tabelaEstudante.getItems().isEmpty()){
+                modAluno = new modificarAluno(tabelaEstudante.getItems().get(tabelaEstudante.getSelectionModel().getSelectedIndex()));
+                try {
+                    modAluno.start(new Stage());
                 } catch (Exception ex) {
                     Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                 }

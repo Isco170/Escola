@@ -105,7 +105,7 @@ public class modificarTurma extends Application{
             try {
                 
                 turDAO.salvarTurma(turma);
-                notificacao(Pos.TOP_CENTER, graphic, "Modficar com sucesso");
+                notificacao(Pos.TOP_CENTER, graphic, "Modficado com sucesso");
                 notificacaoBuilder.showInformation();
                 principal.tabelaTurma.setItems(principal.listarTurmas());
                 cancelar.setText("Fechar");
